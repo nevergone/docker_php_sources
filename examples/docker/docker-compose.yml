@@ -1,0 +1,59 @@
+version: '3.5'
+services:
+  mysql:
+    image: healthcheck/mariadb
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=foobar
+      - MYSQL_PASSWORD=gdDSFds343d
+      - MYSQL_DATABASE=foobar
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+      - ./conf/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    networks:
+      - web
+    restart: always
+  web:
+    image: nevergone/php-apache:7.2.3-1ubuntu1
+    environment:
+      - PHP_IDE_CONFIG=serverName=web
+      - php.memory_limit=256m
+    ports:
+      - "${WEB_DEST_PORT:-127.0.0.1:8080}:80"
+    volumes:
+      - ./log/apache:/var/log/apache2
+      - ..:/var/www/
+    networks:
+      - web
+    restart: always
+    depends_on:
+      - mysql
+    domainname: foobar.com
+    hostname: foobar
+  cli:
+    image: nevergone/php-cli-drupal:7.2.3-1ubuntu1
+    environment:
+      - PHP_IDE_CONFIG=serverName=cli
+    volumes:
+      - ..:/app
+      - ~/.ssh:/root/.ssh:ro
+      - ~/.gitconfig:/root/.gitconfig:ro
+    networks:
+      - web
+    restart: always
+    stdin_open: true
+    tty: true
+    logging:
+      driver: none
+  smtp:
+    image: namshi/smtp
+    networks:
+      - web
+    restart: always
+    depends_on:
+      - mysql
+volumes:
+  mysql_data: {}
+networks:
+  web:

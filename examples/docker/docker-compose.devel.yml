@@ -1,0 +1,30 @@
+version: '3.5'
+services:
+  mysql:
+    volumes:
+      - ./conf/mysql/my.devel.cnf:/etc/mysql/conf.d/my.devel.cnf
+  web:
+    env_file:
+      - env/debug.txt
+  cli:
+    env_file:
+      - env/debug.txt
+  smtp:
+    image: tophfr/mailcatcher
+    ports:
+      - "127.0.0.1:1080:80"
+    networks:
+      - web
+    restart: on-failure
+  theme_devel:
+    image: kkarczmarczyk/node-yarn
+    command: /bin/bash
+    volumes:
+      - ../web/themes/custom/foobar:/workspace
+    networks:
+      - web
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    logging:
+      driver: none

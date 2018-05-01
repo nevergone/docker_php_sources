@@ -1,0 +1,6 @@
+[mysqld]
+query_cache_size        = 512M
+query_cache_limit       = 64M
+innodb_file_per_table   = 1
+innodb_flush_log_at_trx_commit = 0
+innodb_buffer_pool_size = 512M

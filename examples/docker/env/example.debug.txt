@@ -1,0 +1,14 @@
+## enable xdebug:
+ENABLE_DEBUG=1
+
+## www-data user id:
+DEBUG_NEWUID=1000
+
+## www-data group id:
+DEBUG_NEWGID=1000
+
+## xdebug config
+XDEBUG_CONFIG=idekey=PhpStorm
+
+## docker host remote IP address for debugging
+REMOTE_ADDR=172.24.0.1

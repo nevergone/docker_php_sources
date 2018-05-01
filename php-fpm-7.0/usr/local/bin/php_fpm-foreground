@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+## common settings
+/usr/local/bin/php_common_settings.sh
+
+# load common functions
+source /usr/local/bin/functions.sh
+
+# General php setting
+for ENV_VAR in $(envListVars "php\."); do
+    env_key=${ENV_VAR#php.}
+    env_val=$(envGetValue "$ENV_VAR")
+    echo "$env_key = ${env_val}" >> /etc/php/7.0/fpm/php.ini
+done
+
+exec /usr/sbin/php-fpm7.0 -F "$@"
