@@ -10,11 +10,7 @@ RUN apt-get update \
 	php5-dev \
     && git clone https://github.com/xdebug/xdebug.git -b xdebug_2_5 --depth 1 \
     && cd xdebug \
-    && phpize \
-    && ./configure --enable-xdebug \
-    && make \
-    && make test \
-    && make install \
+    && ./rebuild.sh \
     && sed -i '1 i\zend_extension=xdebug.so' /xdebug/xdebug.ini \
     && sed -i '/;xdebug.remote_enable = 0/a xdebug.remote_enable = 1' /xdebug/xdebug.ini \
     && sed -i '/;xdebug.remote_connect_back = 0/a xdebug.remote_connect_back = 1' /xdebug/xdebug.ini
