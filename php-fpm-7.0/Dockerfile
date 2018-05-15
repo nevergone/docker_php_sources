@@ -1,4 +1,4 @@
-FROM nevergone/php-common:7.0.28-0ubuntu0
+FROM nevergone/php-common:7.0-latest
 LABEL maintainer="Kurucz István <never@nevergone.hu>"
 LABEL vendor="nevergone"
 

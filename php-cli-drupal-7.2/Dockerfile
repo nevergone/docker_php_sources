@@ -1,4 +1,4 @@
-FROM nevergone/php-cli:7.2.3-1ubuntu1
+FROM nevergone/php-cli:7.2-latest
 LABEL maintainer="Kurucz István <never@nevergone.hu>"
 LABEL vendor="nevergone"
 
