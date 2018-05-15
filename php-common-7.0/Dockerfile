@@ -8,7 +8,7 @@ RUN apt-get update \
 	make \
         php-cli \
 	php-dev \
-    && git clone https://github.com/xdebug/xdebug.git -b master --depth 1 \
+    && git clone https://github.com/xdebug/xdebug.git -b xdebug_2_6 --depth 1 \
     && cd xdebug \
     && phpize \
     && ./configure --enable-xdebug \
