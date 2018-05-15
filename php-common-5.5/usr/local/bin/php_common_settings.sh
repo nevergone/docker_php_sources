@@ -9,13 +9,13 @@ if [[ $ENABLE_DEBUG -eq 1 ]]; then
   php5enmod xdebug
 fi
 
-# enable uid/gid changing
-if [[ -n $DEBUG_NEWUID ]]; then
+# enable uid/gid changing for unprivileged user
+if [[ -n $UNPRIV_UID ]]; then
   ORIG_UID=$(id -u www-data)
   ORIG_GID=$(id -g www-data)
-  usermod -u $DEBUG_NEWUID www-data
-  groupmod -g $DEBUG_NEWGID www-data
-  find /var/run -user $ORIG_UID -exec chown -h $DEBUG_NEWUID {} \;
-  find /var/run -group $ORIG_GID -exec chgrp -h $DEBUG_NEWGID {} \;
-  usermod -g $DEBUG_NEWGID www-data &> /dev/null
+  usermod -u $UNPRIV_UID www-data
+  groupmod -g $UNPRIV_GID www-data
+  find /var/run -user $ORIG_UID -exec chown -h $UNPRIV_UID {} \;
+  find /var/run -group $ORIG_GID -exec chgrp -h $UNPRIV_GID {} \;
+  usermod -g $UNPRIV_GID www-data &> /dev/null
 fi

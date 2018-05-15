@@ -1,11 +1,11 @@
 ## enable xdebug:
 ENABLE_DEBUG=1
 
-## www-data user id:
-DEBUG_NEWUID=1000
+## unprivileged user id:
+UNPRIV_UID=1000
 
-## www-data group id:
-DEBUG_NEWGID=1000
+## unprivileged group id:
+UNPRIV_GID=1000
 
 ## xdebug config
 XDEBUG_CONFIG=idekey=PhpStorm
